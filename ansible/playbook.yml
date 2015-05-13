@@ -1,0 +1,22 @@
+---
+- name: playbook for system setup
+  hosts: all
+  remote_user: vagrant
+  sudo: yes
+  tasks:
+    - apt: update_cache=yes upgrade=dist
+
+    - apt: name=byobu state=latest
+      register: byobu_update
+      
+    - apt: name=git
+    - apt: name=openjdk-7-jdk
+    
+  handlers:
+
+- include: swap_playbook.yml
+- include: vagrant_playbook.yml
+- include: db_playbook.yml
+- include: php_playbook.yml
+
+

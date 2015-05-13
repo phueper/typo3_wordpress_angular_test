@@ -1,0 +1,45 @@
+---
+- name: playbook for db setup
+  hosts: all
+  remote_user: vagrant
+  sudo: yes
+  vars:
+    db_admin_user: root
+    db_admin_pwd: root
+    db_name: typo3
+    db_user: typo3
+    db_pwd: typo3
+  tasks:
+    # root password for mysql-server
+    - shell: echo "mysql-server-5.5 mysql-server/root_password_again password {{ db_admin_pwd }}" | debconf-set-selections
+    - shell: echo "mysql-server-5.5 mysql-server/root_password password {{ db_admin_pwd }}" | debconf-set-selections
+    - apt: name=mysql-server state=latest
+      register: mysql-server_update
+    - apt: name=mysql-client state=latest
+    - apt: name=python-mysqldb state=latest
+    - replace: dest=/etc/mysql/my.cnf regexp='(bind-address[^=]*=) 127.0.0.1' replace='\1 0.0.0.0'
+    - service: name=mysql state=restarted
+    
+    # we want to activate phpmyadmin for apache... since we need to pipe, we use the "shell" module!
+    - shell: echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2" | debconf-set-selections
+    - shell: echo "phpmyadmin phpmyadmin/mysql/admin-pass password {{ db_admin_pwd }}" | debconf-set-selections
+    - apt: name=phpmyadmin
+    - command: php5enmod mcrypt
+
+    # db and user
+    - name: create db
+      mysql_db: name={{ db_name }} state=present login_user={{ db_admin_user }} login_password={{ db_admin_pwd }}
+      register: db_create
+    - name: user@localhost
+      mysql_user: name={{ db_user }} password={{ db_pwd }} host=localhost priv={{ db_name }}.*:ALL state=present login_user={{ db_admin_user }} login_password={{ db_admin_pwd }}
+    - name: user@%
+      mysql_user: name={{ db_user }} password={{ db_pwd }} host="%" priv={{ db_name }}.*:ALL state=present login_user={{ db_admin_user }} login_password={{ db_admin_pwd }}
+    - name: unzip import
+      shell: gunzip --stdout --keep /vagrant/ansible/mysql/typo3.sql.gz > /tmp/mysql_data.sql
+    - name: import data
+      mysql_db: name=typo3 state=import login_user={{ db_admin_user }} login_password={{ db_admin_pwd }} target=/tmp/mysql_data.sql
+
+
+  handlers:
+
+

@@ -1,0 +1,36 @@
+---
+- name: playbook for php/apache setup
+# TODO: php einstellungen aus https://github.com/TYPO3/TYPO3.CMS/blob/TYPO3_6-2/INSTALL.md setzen!
+# TODO: php extensions aus https://github.com/TYPO3/TYPO3.CMS/blob/TYPO3_6-2/INSTALL.md installieren
+# TODO: apache mod_expires anmachen (https://github.com/TYPO3/TYPO3.CMS/blob/TYPO3_6-2/INSTALL.md)
+  hosts: all
+  remote_user: vagrant
+  sudo: yes
+  vars:
+  tasks:
+    - apt: name=apache2
+    - apt: name=php5
+    - apt: name=php5-xdebug
+    - apt: name=php5-mysql
+    # get the host IP, we assume host only networking and that the host is the default gw
+    - shell: route -n | grep ^0.0.0.0 | cut -d " " -f10
+      register: HOST_IP
+
+    #- debug: var=HOST_IP
+    - debug: msg="enabling xdebug to {{ HOST_IP.stdout }}"
+
+    - name: setup xdebug
+      template: mode="0644" dest="/etc/php5/apache2/conf.d/99_enable_xdebug.ini" src="php/enable_xdebug.template.ini"
+      notify: apache2_restart
+      
+    - name: configure DocumentRoot
+      template: mode="0644" dest="/etc/apache2/sites-available/000-default.conf" src="php/000-default.template.conf"
+      notify: apache2_restart
+
+    - name: enable mod_rewrite 
+      shell: a2enmod rewrite
+      notify: apache2_restart
+
+  handlers:
+  - name: apache2_restart
+    service: name="apache2" state="restarted"
