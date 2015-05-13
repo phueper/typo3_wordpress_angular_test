@@ -6,9 +6,12 @@
   vars:
     db_admin_user: root
     db_admin_pwd: root
-    db_name: typo3
-    db_user: typo3
-    db_pwd: typo3
+    typo3_db_name: typo3
+    typo3_db_user: typo3
+    typo3_db_pwd: typo3
+    wordpress_db_name: wordpress
+    wordpress_db_user: wordpress
+    wordpress_db_pwd: wordpress
   tasks:
     # root password for mysql-server
     - shell: echo "mysql-server-5.5 mysql-server/root_password_again password {{ db_admin_pwd }}" | debconf-set-selections
@@ -26,19 +29,41 @@
     - apt: name=phpmyadmin
     - command: php5enmod mcrypt
 
-    # db and user
+    # typo3 db and user
     - name: create db
-      mysql_db: name={{ db_name }} state=present login_user={{ db_admin_user }} login_password={{ db_admin_pwd }}
-      register: db_create
+      mysql_db: name={{ typo3_db_name }} state=present login_user={{ db_admin_user }} login_password={{ db_admin_pwd }}
+      register: typo3_db_create
     - name: user@localhost
-      mysql_user: name={{ db_user }} password={{ db_pwd }} host=localhost priv={{ db_name }}.*:ALL state=present login_user={{ db_admin_user }} login_password={{ db_admin_pwd }}
+      mysql_user: name={{ typo3_db_user }} password={{ typo3_db_pwd }} host=localhost priv={{ typo3_db_name }}.*:ALL state=present login_user={{ db_admin_user }} login_password={{ db_admin_pwd }}
+      when: typo3_db_create.changed
     - name: user@%
-      mysql_user: name={{ db_user }} password={{ db_pwd }} host="%" priv={{ db_name }}.*:ALL state=present login_user={{ db_admin_user }} login_password={{ db_admin_pwd }}
+      mysql_user: name={{ typo3_db_user }} password={{ typo3_db_pwd }} host="%" priv={{ typo3_db_name }}.*:ALL state=present login_user={{ db_admin_user }} login_password={{ db_admin_pwd }}
+      when: typo3_db_create.changed
     - name: unzip import
-      shell: gunzip --stdout --keep /vagrant/ansible/mysql/typo3.sql.gz > /tmp/mysql_data.sql
+      shell: gunzip --stdout --keep /vagrant/ansible/mysql/typo3.sql.gz > /tmp/typo3_mysql_data.sql
+      when: typo3_db_create.changed
     - name: import data
-      mysql_db: name=typo3 state=import login_user={{ db_admin_user }} login_password={{ db_admin_pwd }} target=/tmp/mysql_data.sql
+      mysql_db: name={{ typo3_db_name }}  state=import login_user={{ db_admin_user }} login_password={{ db_admin_pwd }} target=/tmp/typo3_mysql_data.sql
+      when: typo3_db_create.changed
 
+    # wordpress db and user
+    - name: create db
+      mysql_db: name={{ wordpress_db_name }} state=present login_user={{ db_admin_user }} login_password={{ db_admin_pwd }}
+      register: wordpress_db_create
+    - name: debug wordpress_db_create
+      debug: var=wordpress_db_create
+    - name: user@localhost
+      mysql_user: name={{ wordpress_db_user }} password={{ wordpress_db_pwd }} host=localhost priv={{ wordpress_db_name }}.*:ALL state=present login_user={{ db_admin_user }} login_password={{ db_admin_pwd }}
+      when: wordpress_db_create.changed
+    - name: user@%
+      mysql_user: name={{ wordpress_db_user }} password={{ wordpress_db_pwd }} host="%" priv={{ wordpress_db_name }}.*:ALL state=present login_user={{ db_admin_user }} login_password={{ db_admin_pwd }}
+      when: wordpress_db_create.changed
+    - name: unzip import
+      shell: gunzip --stdout --keep /vagrant/ansible/mysql/wordpress.sql.gz > /tmp/wordpress_mysql_data.sql
+      when: wordpress_db_create.changed
+    - name: import data
+      mysql_db: name={{ wordpress_db_name }}  state=import login_user={{ db_admin_user }} login_password={{ db_admin_pwd }} target=/tmp/wordpress_mysql_data.sql
+      when: wordpress_db_create.changed
 
   handlers:
 
