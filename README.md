@@ -41,7 +41,8 @@ typo3
 
 Im Moment ist ein typo3 6.2 LTS eingecheckt und wird genutzt
 
-typo3 ist unter http://localhost:10080/typo3/backend.php erreichbar.
+typo3 frontend ist unter http://localhost:10080/t3/ erreichbar.
+typo3 backend ist unter http://localhost:10080/t3/typo3/backend.php erreichbar.
 
 User: admin
 PW: typo3_vagrant
@@ -51,3 +52,13 @@ Wenn eine komplett neue DB aufgesetzt werden soll, kann der DB Import in db_play
 Viel Spass!
 
 
+wordpress
+---------
+
+Im Moment ist wordpress 4.2.2 eingecheckt und wird genutzt
+
+wordpress frontend ist unter http://localhost:10080/wp/ erreichbar
+wordpress admin ist unter http://localhost:10080/wp/wp-admin/ erreichbar
+
+User: admin
+PW: wordpress_vagrant
