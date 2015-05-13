@@ -1,0 +1,14 @@
+{
+  "name": "typo3_wordpress_angular_test",
+  "description": "angularjs part of the playground to integrate angularjs and different content deliverers",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "angular": "~1.3.x",
+    "angular-resource": "~1.3.x",
+    "angular-mocks": "~1.3.x",
+    "jquery": "~2.1.x",
+    "angular-bootstrap": "~0.13.0",
+    "font-awesome": "~4.1.0"
+  }
+}

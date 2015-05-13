@@ -18,5 +18,6 @@
 - include: vagrant_playbook.yml
 - include: db_playbook.yml
 - include: php_playbook.yml
+- include: angularjs_playbook.yml
 
 

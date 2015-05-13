@@ -1,0 +1,9 @@
+{
+  "name": "typo3_wordpress_angular_test",
+  "description": "angularjs part of the playground to integrate angularjs and different content deliverers",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "bower": "~1.4.x"
+  }
+}

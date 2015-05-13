@@ -1,0 +1,24 @@
+---
+- name: playbook for angularjs setup
+  hosts: all
+  remote_user: vagrant
+  sudo: yes
+  vars:
+  tasks:
+    - name: install npm
+      apt: name=npm
+    - name: install nodejs-legacy
+      apt: name=nodejs-legacy
+    # --no-bin-links tells npm to not create any symbolic links.
+    # There is no way of translating symlinks to a windows share.
+    - name: npm install
+      shell: npm install --no-bin-links --unsafe-perm
+      args:
+        chdir: /vagrant/angularjs
+    # run bower in angularjs dir
+    - name: bower install
+      shell: node_modules/bower/bin/bower install --allow-root
+      args:
+        chdir: /vagrant/angularjs
+      
+  handlers:

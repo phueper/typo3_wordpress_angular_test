@@ -40,6 +40,7 @@ typo3
 -----
 
 Im Moment ist ein typo3 6.2 LTS eingecheckt und wird genutzt
+liegt im typo3/ Verzeichnis, Installation ist nach der Standardanleitung gemacht
 
 typo3 frontend ist unter http://localhost:10080/t3/ erreichbar.
 typo3 backend ist unter http://localhost:10080/t3/typo3/backend.php erreichbar.
@@ -56,9 +57,20 @@ wordpress
 ---------
 
 Im Moment ist wordpress 4.2.2 eingecheckt und wird genutzt
+liegt im wordpress/ Verzeichnis, Installation ist nach der Standardanleitung gemacht
 
 wordpress frontend ist unter http://localhost:10080/wp/ erreichbar
 wordpress admin ist unter http://localhost:10080/wp/wp-admin/ erreichbar
 
 User: admin
 PW: wordpress_vagrant
+
+
+angularjs
+---------
+
+Wird mit bower installiert 
+liegt im angularjs/ Verzeichnis
+Content ist im angularjs/web/
+
+Einfache Seite ist unter http://localhost:10080 erreichbar
