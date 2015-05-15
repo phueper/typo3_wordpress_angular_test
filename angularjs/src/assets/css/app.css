@@ -1,0 +1,16 @@
+/* see http://angular-ui.github.io/bootstrap/ */
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}
+
+.ng-dirty.ng-invalid {
+    border-color: red;
+}
+
+.ng-pristine.ng-invalid {
+    border-color: red;
+}
+
+.page-header .title {
+    font-size: 25px;
+}
