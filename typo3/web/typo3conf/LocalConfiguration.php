@@ -5,6 +5,7 @@ return array(
 		'explicitADmode' => 'explicitAllow',
 		'installToolPassword' => '$P$CFkhvjb0Z6HStAS1CAAys/QDRscLXN0',
 		'loginSecurityLevel' => 'rsa',
+		'versionNumberInFilename' => '0',
 	),
 	'DB' => array(
 		'database' => 'typo3',
@@ -50,7 +51,7 @@ return array(
 		'enableDeprecationLog' => FALSE,
 		'encryptionKey' => 'c032f3747bd1a4f251b4b226e05ac6be1addb91d11e3863902530939aba5a33cf2279ce70c3daf0d1215c940d6ace5b5',
 		'isInitialInstallationInProgress' => FALSE,
-		'sitename' => 'New TYPO3 site',
+		'sitename' => 'T3/WP/NG',
 		'sqlDebug' => 0,
 		'systemLogLevel' => 2,
 		't3lib_cs_convMethod' => 'mbstring',
