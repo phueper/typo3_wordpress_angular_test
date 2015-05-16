@@ -5,6 +5,7 @@ return array(
 		'explicitADmode' => 'explicitAllow',
 		'installToolPassword' => '$P$CFkhvjb0Z6HStAS1CAAys/QDRscLXN0',
 		'loginSecurityLevel' => 'rsa',
+		'sessionTimeout' => '360000',
 		'versionNumberInFilename' => '0',
 	),
 	'DB' => array(
