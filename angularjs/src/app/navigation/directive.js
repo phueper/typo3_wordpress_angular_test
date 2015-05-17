@@ -1,27 +1,23 @@
-(function(){
+(function() {
   'use strict';
 
   angular
     .module('t3_wp_ng.navigation')
 
-    .directive('myNavigation', ['$log', initNavigation]);
+    .directive('myNavigation', ['$log', 'NavigationFactory', initNavigation]);
 
-  function initNavigation($log){
+  function initNavigation($log, NavigationFactory) {
     return {
-      restrict: 'E',
-      scope: {
-      },
+      restrict:    'E',
+      scope:       {},
       templateUrl: 'app/navigation/navigation.tpl.html',
-      controller: ['$scope', 'NavigationFactory', function($scope, NavigationFactory) {
-        NavigationFactory.getMainNavigation().$promise.then(function(result){
+      link:        function(scope, element, attrs, ctrl) {
+        NavigationFactory.getMainNavigation().$promise.then(function(result) {
           $log.debug(result);
-          $scope.menu = result.menu;
+          scope.menu = result.menu;
         });
-      }],
-      link: function(scope, element, attrs, ctrl) {
       }
+
     };
-
   }
-
 })();
