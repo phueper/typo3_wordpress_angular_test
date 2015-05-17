@@ -18,6 +18,7 @@
         <!-- Custom styles for this template -->
         <link rel="stylesheet" href="assets/css/sticky-footer-navbar.css">
         <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.css"/>
+        <link rel="stylesheet" href="assets/css/dropdown-submenu.css"/>
         <link rel="stylesheet" href="assets/css/app.css"/>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -29,49 +30,19 @@
 
     <body ng-controller="AppCtrl">
 
-        <!-- Fixed navbar -->
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" toggle="collapse" target="#navbar"
-                            aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#" ui-sref="home">T3/WP/NG</a>
-                </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li ui-sref-active="active"><a href="#" ui-sref="home">Home</a></li>
-                        <li ui-sref-active="active"><a href="#" ui-sref="about">About</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle"
-                               toggle="dropdown" role="button" aria-expanded="false">Dropdown <span
-                                    class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a>
-                                </li>
-                                <li><a href="#">Something else
-                                    here</a></li>
-                                <li class="divider"></li>
-                                <li class="dropdown-header">Nav header</li>
-                                <li><a href="#">Separated link</a>
-                                </li>
-                                <li><a href="#">One more separated
-                                    link</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <!--/.nav-collapse -->
-            </div>
-        </nav>
-
+        <!-- navigation here using myNavigation directive -->
+        <div class="container">
+            <my-navigation/>
+        </div>
+        
         <!-- Begin page content -->
         <div class="container">
+            <p>Das hier ist die Angular JS SinglePage Variante, keine Pageloads mehr</p>
+
+            <p> die Daten werden komplett per AJAX vom Backend abgeholt</p>
+
+            <p><a href="/t3/index.php">hier</a> geht's zur typo3 Variante</p>
+
             <div class="page-header">
                 <div class="title">{{title}}</div>
             </div>
@@ -111,6 +82,12 @@
         <script src="vendor/angular-ui-router/release/angular-ui-router.js"></script>
         <script src="vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
         <script src="vendor/angular-resource/angular-resource.js"></script>
+        <script src="vendor/x2js/xml2json.js"></script>
+        <script src="vendor/angular-xml/angular-xml.js"></script>
+
+        <script src="app/navigation/module.js"></script>
+        <script src="app/navigation/factory.js"></script>
+        <script src="app/navigation/directive.js"></script>
 
         <script src="app/home/home.js"></script>
         <script src="app/home/home.ctrl.js"></script>

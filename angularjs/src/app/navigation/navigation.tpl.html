@@ -1,0 +1,57 @@
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" ng-init="navCollapsed=false"
+                ng-click="navCollapsed != navCollapsed"
+                aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#" ui-sref="home">T3/WP/NG</a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'" ng-click="navCollapsed=true">
+        <ul ng-if="menu" class="nav navbar-nav">
+            <span ng-repeat-start="item in menu.item"/>
+            <li ng-if="item.item === undefined" ui-sref-active="active">
+                <a href="#{{item.link.elementUid}}" ui-sref="nav_routes_{{item.link.elementUid}}">{{item.link.text}}</a>
+            </li>
+            <li ng-if="item.item !== undefined" ui-sref-active="active" dropdown>
+                <a href="#{{item.link.elementUid}}" ui-sref="nav_routes_{{item.link.elementUid}}" dropdown-toggle>
+                    {{item.link.text}} <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <span ng-repeat-start="item in item.item"/>
+                    <li ng-if="item.item === undefined">
+                        <a href="#{{item.link.elementUid}}"
+                           ui-sref="nav_routes_{{item.link.elementUid}}">{{item.link.text}}
+                        </a>
+                    </li>
+                    <li ng-if="item.item !== undefined" class="dropdown-submenu" dropdown>
+                        <!-- TODO: submenus are currently :hover activated... that is bad for mobile :(
+                        i would like to add the comments from http://bootsnipp.com/snippets/featured/multi-level-navbar-menu 
+                        into the directive later... 
+                        On the other hand... the mobile "hamburger" navigation menu doesn't work yet either :) -->
+                        <a href="#{{item.link.elementUid}}"
+                           ui-sref="nav_routes_{{item.link.elementUid}}" dropdown-toggle>{{item.link.text}}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="item in item.item">
+                                <!-- three levels only currently, otherwise we need "recursion" 
+                                like: http://www.grobmeier.de/recursive-menus-angularjs-templates-01082013.html#.VViD-N_OtvA -->
+                                <a href="#{{item.link.elementUid}}"
+                                   ui-sref="nav_routes_{{item.link.elementUid}}">{{item.link.text}}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <span ng-repeat-end/>
+                </ul>
+            </li>
+            <span ng-repeat-end/>
+        </ul>
+    </div>
+    <!--/.nav-collapse -->
+</nav>
+
