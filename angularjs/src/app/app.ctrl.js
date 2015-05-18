@@ -4,36 +4,30 @@
   angular
     .module('t3_wp_ng')
 
-  /**
-   * @ngdoc function
-   * @name t3_wp_ng.AppCtrl
-   * @requires $scope
-   * @requires $rootScope
-   * @requires $localStorage
-   * @description Application main controller who saves session informations in local
-   *              storage and navigate between page sections.
-   **/
+    .controller('appCtrl', ['$scope', '$rootScope', '$state', '$log', appCtrl])
 
-    .controller('AppCtrl', AppCtrl)
+  function appCtrl($scope, $rootScope, $state, $log) {
+    /* to debug ui-router state transitions */
+    $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
+      $log.debug('$stateChangeStart to '+toState.to+'- fired when the transition begins. toState,toParams : \n',toState, toParams);
+    });
 
-  AppCtrl.$inject = ['$scope', '$rootScope'];
+    $rootScope.$on('$stateChangeSuccess',function(event, toState, toParams, fromState, fromParams){
+      $log.debug('$stateChangeSuccess to '+toState.name+'- fired once the state transition is complete.');
+    });
 
-  /**
-   * @ngDoc function
-   * @private
-   * @constructor
-   * @name reportsShowModalCtrl
-   * @param {$scope} references to controllers scope
-   * @param {$rootScope} references to the application root scope
-   * @param {$localStorage} references to the $localStorage service to interact with localStorage api of the browser
-   * @description Function to initialize the application main controller.
-   */
+    $rootScope.$on('$viewContentLoaded',function(event){
+      $log.debug('$viewContentLoaded - fired after dom rendered',event);
+    });
 
-  function AppCtrl($scope, $rootScope) {
-    $rootScope.$on('$stateChangeSuccess', onStateChangedSuccesful);
-
-    function onStateChangedSuccesful(event, toState, toParams, fromState, fromParams) {
-      $scope.title = toState.data.title;
-    }
+    /* state transition error states */
+    $rootScope.$on('$stateChangeError',function(event, toState, toParams, fromState, fromParams){
+      $log.error('$stateChangeError - fired when an error occurs during transition.');
+      $log.error('arguments: ', arguments);
+    });
+    $rootScope.$on('$stateNotFound',function(event, unfoundState, fromState, fromParams){
+      $log.warn('$stateNotFound '+unfoundState.to+'  - fired when a state cannot be found by its name.');
+      $log.warn(unfoundState, fromState, fromParams);
+    });
   }
 })();

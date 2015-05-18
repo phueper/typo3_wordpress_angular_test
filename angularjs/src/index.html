@@ -28,13 +28,13 @@
         <![endif]-->
     </head>
 
-    <body ng-controller="AppCtrl">
+    <body ng-controller="appCtrl">
 
         <!-- navigation here using myNavigation directive -->
         <div class="container">
             <my-navigation/>
         </div>
-        
+
         <!-- Begin page content -->
         <div class="container">
             <p>Das hier ist die Angular JS SinglePage Variante, keine Pageloads mehr</p>
@@ -43,11 +43,7 @@
 
             <p><a href="/t3/index.php">hier</a> geht's zur typo3 Variante</p>
 
-            <div class="page-header">
-                <div class="title">{{title}}</div>
-            </div>
-            <!-- Main Content -->
-            <section ui-view></section>
+            <ui-view/>
         </div>
 
         <footer class="footer">
@@ -84,16 +80,15 @@
         <script src="vendor/angular-resource/angular-resource.js"></script>
         <script src="vendor/x2js/xml2json.js"></script>
         <script src="vendor/angular-xml/angular-xml.js"></script>
+        <script src="vendor/angular-sanitize/angular-sanitize.js"></script>
 
-        <script src="app/navigation/module.js"></script>
-        <script src="app/navigation/factory.js"></script>
-        <script src="app/navigation/directive.js"></script>
+        <script src="app/content/content.module.js"></script>
+        <script src="app/content/content.service.js"></script>
+        <script src="app/content/content.ctrl.js"></script>
 
-        <script src="app/home/home.js"></script>
-        <script src="app/home/home.ctrl.js"></script>
-
-        <script src="app/about/about.js"></script>
-        <script src="app/about/about.ctrl.js"></script>
+        <script src="app/navigation/navigation.module.js"></script>
+        <script src="app/navigation/navigation.service.js"></script>
+        <script src="app/navigation/navigation.directive.js"></script>
 
         <script src="app/app.properties.js"></script>
         <script src="app/app.js"></script>
