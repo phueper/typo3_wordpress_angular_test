@@ -50,9 +50,6 @@ PW: typo3_vagrant
 
 Wenn eine komplett neue DB aufgesetzt werden soll, kann der DB Import in db_playbook.yml disabled werden und eine normale Neuinstallation erfolgen (vermutlich muss auch typo3conf, typo3temp in web/ gelöscht werden
 
-Viel Spass!
-
-
 wordpress
 ---------
 
@@ -74,3 +71,15 @@ liegt im angularjs/ Verzeichnis
 Content ist im angularjs/web/
 
 Einfache Seite ist unter http://localhost:10080 erreichbar
+
+Das ist die AngularJS Variante... das Menü und die Seiten"inhalte" (bis auf ein bissle Template) kommen im Moment aus Typo3 und können da auch gepflegt werden...
+
+Unter http://localhost:10080/t3/index.php ist dasselbe in einer ganz simplen Typo3 Version... 
+
+man kann aber schon Unterschiede erkennen... navigation im Menü macht halt immer einen kompletten Pageload während in der Angular Version nur die Inhalte dynamisch ausgetauscht werden...
+
+Damit die Inhalte und das Menü vom Angular dynamisch geladen werden hab ich im typo3 ein ganz simples TSTemplate zusammengestrickt, dass diese als XML ausliefern kann ohne sonstiges templating... 
+das geht im Moment nur für ganz simplen Typo3 Content (Überschrift und Text) aber zum mal zeigen reicht es... 
+
+Nächste Schritte wenn ich dazu komme wäre dann eben auch Wordpress Content einzubinden...
+
