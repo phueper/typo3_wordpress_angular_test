@@ -14,3 +14,15 @@
 .page-header .title {
     font-size: 25px;
 }
+
+.external_content {
+    border: 2px solid green;
+}
+
+.external_content::before {
+    content: "Das hier kommt aus den Content Lieferanten";
+    display: block;
+    color: green;
+    width: 100%;
+    border-bottom: 1px solid green;
+}
