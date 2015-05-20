@@ -30,14 +30,16 @@ fi
 
 # Install Ansible and its dependencies if it's not installed already.
 if [ ! -f /usr/bin/ansible ]; then
-  echo "Installing Ansible and Git."
+  echo "Installing Ansible."
   # enable backports in /etc/apt/sources.list
-  sed -e 's/^#*\(.*deb.*trusty-backports.*\)/\1/g' -i /etc/apt/sources.list
-  # and install the ansible backport
-  apt-get update -y; apt-get install -y ansible/trusty-backports
+  sed -e 's/^#*\(.*deb.*-backports.*\)/\1/g' -i /etc/apt/sources.list
+  # and install ansible
+  apt-get update -y; apt-get install -y ansible
 fi
 
 cp /vagrant/${ANSIBLE_HOSTS} ${TEMP_HOSTS} && chmod -x ${TEMP_HOSTS}
 echo "Running Ansible provisioner defined in Vagrantfile."
+# make ansible output unbuffered and show directly in console
+export PYTHONUNBUFFERED=1
 ansible-playbook /vagrant/${ANSIBLE_PLAYBOOK} --inventory-file=${TEMP_HOSTS} --extra-vars "is_windows=true" --connection=local -vv
 rm ${TEMP_HOSTS}
