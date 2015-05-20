@@ -16,8 +16,8 @@ Für die vagrant vm wird benötigt:
 - vagrant (https://www.vagrantup.com/downloads.html)
 - vagrant-vbguest plugin
   (nachdem vagrant installiert ist auf der cmdline mit `vagrant plugin install vagrant-vbguest`)
-- vagrant-trigger plugin
-  (nachdem vagrant installiert ist auf der cmdline mit `vagrant plugin install vagrant-trigger`)
+- vagrant-triggers plugin
+  (nachdem vagrant installiert ist auf der cmdline mit `vagrant plugin install vagrant-triggers`)
 - ansible für das Provisioning
   apt-get install ansible oder für nicht ordentliche Betriebssysteme ist ein Workaround eingebaut, der ansible in der VM installiert und dort ausführt
   
